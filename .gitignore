@@ -1,0 +1,5 @@
+.terraform
+
+examples/basic/.terraform
+examples/basic/terraform.tfstate*
+examples/basic/credentials.tf

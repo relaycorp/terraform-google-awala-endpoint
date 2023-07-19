@@ -1,0 +1,19 @@
+name: CI and releases
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  ci-module:
+    uses: relaycorp/shared-workflows/.github/workflows/tfmodule-ci.yml@main
+  ci-example:
+    uses: relaycorp/shared-workflows/.github/workflows/tfmodule-ci.yml@main
+    with:
+      path: examples/self
+
+  release:
+    needs:
+      - ci-module
+      - ci-example
+    uses: relaycorp/shared-workflows/.github/workflows/tfmodule-release.yml@main
