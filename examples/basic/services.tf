@@ -5,6 +5,7 @@ locals {
     "cloudkms.googleapis.com",
     "pubsub.googleapis.com",
     "secretmanager.googleapis.com",
+    "iam.googleapis.com",
   ]
 }
 
