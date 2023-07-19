@@ -1,12 +1,3 @@
-terraform {
-  required_providers {
-    google = {
-      source  = "hashicorp/google"
-      version = "~> 4.74.0"
-    }
-  }
-}
-
 locals {
   project_id = "tmp-tf-awala-endpoint"
 }
