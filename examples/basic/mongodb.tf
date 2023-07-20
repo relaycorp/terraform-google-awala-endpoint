@@ -28,7 +28,7 @@ resource "random_password" "mongodb_user_password" {
   length = 32
 }
 
-resource "google_secret_manager_secret" "main" {
+resource "google_secret_manager_secret" "mongodb_password" {
   project = local.project_id
 
   secret_id = "awala_endpoint-mongodb_password"
@@ -42,12 +42,18 @@ resource "google_secret_manager_secret" "main" {
   }
 }
 
-resource "google_secret_manager_secret_version" "main" {
-  secret      = google_secret_manager_secret.main.id
+resource "google_secret_manager_secret_version" "mongodb_password" {
+  secret      = google_secret_manager_secret.mongodb_password.id
   secret_data = random_password.mongodb_user_password.result
 }
 
 resource "mongodbatlas_project_ip_access_list" "test" {
   project_id = var.mongodbatlas_project_id
   cidr_block = "0.0.0.0/0"
+}
+
+resource "google_secret_manager_secret_iam_binding" "mongodb_password_reader" {
+  secret_id = google_secret_manager_secret.mongodb_password.secret_id
+  role      = "roles/secretmanager.secretAccessor"
+  members   = ["serviceAccount:${module.self.service_account_email}"]
 }

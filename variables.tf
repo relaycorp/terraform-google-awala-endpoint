@@ -18,3 +18,18 @@ variable "kms_protection_level" {
     error_message = "KMS protection level must be either SOFTWARE or HSM"
   }
 }
+
+variable "mongodb_uri" {
+  description = "The MongoDB URI"
+  type        = string
+}
+
+variable "mongodb_user" {
+  description = "The MongoDB username"
+  type        = string
+}
+
+variable "mongodb_password_secret_version" {
+  description = "The id of the Secrets Manager secret version containing the MongoDB password"
+  type        = string
+}
