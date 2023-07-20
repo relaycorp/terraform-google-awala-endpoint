@@ -46,3 +46,8 @@ resource "google_secret_manager_secret_version" "main" {
   secret      = google_secret_manager_secret.main.id
   secret_data = random_password.mongodb_user_password.result
 }
+
+resource "mongodbatlas_project_ip_access_list" "test" {
+  project_id = var.mongodbatlas_project_id
+  cidr_block = "0.0.0.0/0"
+}
