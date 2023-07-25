@@ -47,6 +47,15 @@ resource "google_kms_crypto_key" "session_keys" {
   }
 }
 
+data "google_kms_crypto_key_version" "identity_key" {
+  crypto_key = google_kms_crypto_key.identity_key.id
+}
+
+resource "time_sleep" "wait_for_id_key_creation" {
+  depends_on      = [google_kms_crypto_key.identity_key]
+  create_duration = "30s"
+}
+
 // IAM
 // https://docs.relaycorp.tech/awala-keystore-cloud-js/gcp#iam-permissions
 

@@ -1,13 +1,4 @@
-data "google_kms_crypto_key_version" "identity_key" {
-  crypto_key = google_kms_crypto_key.identity_key.id
-}
-
-resource "time_sleep" "wait_for_id_key_creation" {
-  depends_on      = [google_kms_crypto_key.identity_key]
-  create_duration = "30s"
-}
-
-resource "google_cloud_run_v2_service" "main" {
+resource "google_cloud_run_v2_service" "pohttp_server" {
   name     = "awala-endpoint-${random_id.resource_suffix.hex}-pohttp-server"
   location = var.region
   ingress  = "INGRESS_TRAFFIC_INTERNAL_LOAD_BALANCER"
@@ -170,10 +161,10 @@ resource "google_cloud_run_v2_service" "main" {
   depends_on = [time_sleep.wait_for_id_key_creation]
 }
 
-resource "google_cloud_run_service_iam_member" "public_access" {
-  location = google_cloud_run_v2_service.main.location
-  project  = google_cloud_run_v2_service.main.project
-  service  = google_cloud_run_v2_service.main.name
+resource "google_cloud_run_service_iam_member" "pohttp_server_public_access" {
+  location = google_cloud_run_v2_service.pohttp_server.location
+  project  = google_cloud_run_v2_service.pohttp_server.project
+  service  = google_cloud_run_v2_service.pohttp_server.name
   role     = "roles/run.invoker"
   member   = "allUsers"
 }

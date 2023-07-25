@@ -47,6 +47,6 @@ resource "google_compute_region_network_endpoint_group" "main" {
 
   network_endpoint_type = "SERVERLESS"
   cloud_run {
-    service = google_cloud_run_v2_service.main.name
+    service = google_cloud_run_v2_service.pohttp_server.name
   }
 }
