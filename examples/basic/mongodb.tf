@@ -1,5 +1,6 @@
 locals {
   mongodb_db_name = "main"
+  mongodb_uri     = "${mongodbatlas_serverless_instance.main.connection_strings_standard_srv}/?retryWrites=true&w=majority"
 }
 
 resource "mongodbatlas_serverless_instance" "main" {
@@ -25,7 +26,7 @@ resource "mongodbatlas_database_user" "main" {
 
   roles {
     role_name     = "readWrite"
-    database_name = mongodbatlas_serverless_instance.main.name
+    database_name = local.mongodb_db_name
   }
 }
 
