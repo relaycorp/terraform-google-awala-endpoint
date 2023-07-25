@@ -52,6 +52,9 @@ variable "mongodb_password" {
   sensitive   = true
 }
 
+variable "pohttp_server_domain" {
+  description = "Domain name for the PoHTTP server"
+}
 variable "pohttp_server_max_instance_request_concurrency" {
   description = "The maximum number of concurrent requests per instance (for the PoHTTP server)"
   type        = number

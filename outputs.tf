@@ -8,3 +8,7 @@ output "pubsub_topics" {
     "outgoing_messages" = google_pubsub_topic.outgoing_messages.name
   }
 }
+
+output "pohttp_server_ip_address" {
+  value = module.load_balancer.external_ip
+}

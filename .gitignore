@@ -4,4 +4,3 @@ examples/*/.terraform
 examples/*/terraform.tfstate*
 examples/*/.terraform.tfstate.lock.info
 examples/*/terraform.tfvars
-examples/*/credentials.tf

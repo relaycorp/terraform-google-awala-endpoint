@@ -7,6 +7,16 @@ terraform {
   }
 }
 
+provider "google" {
+  project     = var.google_project
+  credentials = file(var.google_credentials_path)
+}
+
+provider "google-beta" {
+  project     = var.google_project
+  credentials = file(var.google_credentials_path)
+}
+
 provider "mongodbatlas" {
   public_key  = var.mongodbatlas_public_key
   private_key = var.mongodbatlas_private_key

@@ -11,6 +11,8 @@ module "self" {
   project_id = local.project_id
   region     = local.gcp_region
 
+  pohttp_server_domain = var.pohttp_server_domain
+
   mongodb_uri      = mongodbatlas_serverless_instance.main.connection_strings_standard_srv
   mongodb_db       = local.mongodb_db_name
   mongodb_user     = mongodbatlas_database_user.main.username

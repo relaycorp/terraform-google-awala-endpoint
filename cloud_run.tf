@@ -7,10 +7,10 @@ resource "time_sleep" "wait_for_id_key_creation" {
   create_duration = "30s"
 }
 
-resource "google_cloud_run_v2_service" "default" {
+resource "google_cloud_run_v2_service" "main" {
   name     = "awala-endpoint-${random_id.resource_suffix.hex}-pohttp-server"
   location = var.region
-  ingress  = "INGRESS_TRAFFIC_ALL"
+  ingress  = "INGRESS_TRAFFIC_INTERNAL_LOAD_BALANCER"
 
   template {
     timeout = "300s"
@@ -142,6 +142,7 @@ resource "google_cloud_run_v2_service" "default" {
         initial_delay_seconds = 3
         failure_threshold     = 3
         period_seconds        = 10
+        timeout_seconds       = 3
         http_get {
           path = "/"
           port = 8080
@@ -152,6 +153,7 @@ resource "google_cloud_run_v2_service" "default" {
         initial_delay_seconds = 0
         failure_threshold     = 3
         period_seconds        = 20
+        timeout_seconds       = 3
         http_get {
           path = "/"
           port = 8080
@@ -166,4 +168,12 @@ resource "google_cloud_run_v2_service" "default" {
   }
 
   depends_on = [time_sleep.wait_for_id_key_creation]
+}
+
+resource "google_cloud_run_service_iam_member" "public_access" {
+  location = google_cloud_run_v2_service.main.location
+  project  = google_cloud_run_v2_service.main.project
+  service  = google_cloud_run_v2_service.main.name
+  role     = "roles/run.invoker"
+  member   = "allUsers"
 }
