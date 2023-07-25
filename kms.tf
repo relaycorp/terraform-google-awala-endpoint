@@ -10,8 +10,8 @@ resource "google_kms_key_ring" "keystores" {
   location = var.region
 }
 
-resource "google_kms_crypto_key" "identity_keys" {
-  name     = "identity-keys"
+resource "google_kms_crypto_key" "identity_key" {
+  name     = "identity-key"
   key_ring = google_kms_key_ring.keystores.id
   purpose  = "ASYMMETRIC_SIGN"
 
@@ -28,7 +28,7 @@ resource "google_kms_crypto_key" "identity_keys" {
 }
 
 resource "google_kms_crypto_key_version" "identity_key" {
-  crypto_key = google_kms_crypto_key.identity_keys.id
+  crypto_key = google_kms_crypto_key.identity_key.id
 }
 
 resource "google_kms_crypto_key" "session_keys" {
