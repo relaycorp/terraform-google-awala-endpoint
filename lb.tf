@@ -7,6 +7,7 @@ module "load_balancer" {
   name = "awala-endpoint-${random_id.resource_suffix.hex}"
 
   ssl                             = true
+  ssl_policy                      = google_compute_ssl_policy.main.id
   managed_ssl_certificate_domains = [var.pohttp_server_domain]
 
   backends = {
@@ -29,6 +30,12 @@ module "load_balancer" {
   }
 
   http_forward = false
+}
+
+resource "google_compute_ssl_policy" "main" {
+  name            = "awala-endpoint-${random_id.resource_suffix.hex}"
+  profile         = "MODERN"
+  min_tls_version = "TLS_1_2"
 }
 
 resource "google_compute_region_network_endpoint_group" "main" {
