@@ -23,5 +23,5 @@ resource "google_pubsub_topic_iam_binding" "incoming_messages_publisher" {
 
   topic   = google_pubsub_topic.incoming_messages.name
   role    = "roles/pubsub.publisher"
-  members = ["serviceAccount:${google_service_account.endpoint.email}", ]
+  members = ["serviceAccount:${google_service_account.main.email}", ]
 }

@@ -9,7 +9,7 @@ resource "google_cloud_run_v2_job" "bootstrap" {
 
       timeout = "300s"
 
-      service_account = google_service_account.endpoint.email
+      service_account = google_service_account.main.email
 
       execution_environment = "EXECUTION_ENVIRONMENT_GEN2"
 
@@ -121,5 +121,75 @@ resource "google_cloud_run_v2_job" "bootstrap" {
   depends_on = [time_sleep.wait_for_id_key_creation]
   lifecycle {
     ignore_changes = [launch_stage]
+  }
+}
+
+resource "google_service_account" "bootstraper" {
+  project = var.project_id
+
+  account_id  = "awala-endpoint-${random_id.resource_suffix.hex}-boot"
+  description = "Used to run bootstrapping job"
+}
+
+resource "google_cloud_run_v2_job_iam_member" "bootstrapper" {
+  project  = google_cloud_run_v2_job.bootstrap.project
+  location = google_cloud_run_v2_job.bootstrap.location
+  name     = google_cloud_run_v2_job.bootstrap.name
+  role     = "roles/run.invoker"
+  member   = "serviceAccount:${google_service_account.bootstraper.email}"
+}
+
+resource "google_service_account_iam_binding" "bootstraper_impersonation" {
+  service_account_id = google_service_account.bootstraper.id
+  role               = "roles/iam.serviceAccountTokenCreator"
+  members = [
+    "serviceAccount:${data.google_client_openid_userinfo.me.email}",
+  ]
+}
+
+resource "time_sleep" "wait_for_bootstraper_impersonation" {
+  depends_on      = [google_service_account_iam_binding.bootstraper_impersonation]
+  create_duration = "10s"
+}
+
+data "google_service_account_access_token" "bootstrapper" {
+  target_service_account = google_service_account.bootstraper.email
+  scopes                 = ["userinfo-email", "cloud-platform"]
+
+  depends_on = [time_sleep.wait_for_bootstraper_impersonation]
+}
+
+resource "null_resource" "detect_bootstrap_job_change" {
+  triggers = {
+    job_generation = google_cloud_run_v2_job.bootstrap.generation
+  }
+}
+
+data "http" "bootstrap_executer" {
+  // Only execute when job changes
+  count = null_resource.detect_bootstrap_job_change.id == null ? 0 : 1
+
+  url    = "https://${var.region}-run.googleapis.com/apis/run.googleapis.com/v1/namespaces/${var.project_id}/jobs/${google_cloud_run_v2_job.bootstrap.name}:run"
+  method = "POST"
+
+  request_headers = {
+    "Authorization" = "Bearer ${data.google_service_account_access_token.bootstrapper.access_token}"
+    "Content-Type"  = "application/json"
+  }
+
+  retry {
+    attempts     = 1
+    min_delay_ms = 3000
+  }
+
+  lifecycle {
+    postcondition {
+      condition     = self.status_code == 200
+      error_message = "Bootstrap execution was rejected"
+    }
+    postcondition {
+      condition     = google_cloud_run_v2_job.bootstrap.generation == lookup(lookup(lookup(jsondecode(self.response_body), "metadata"), "labels"), "run.googleapis.com/jobGeneration")
+      error_message = "Executed wrong generation of bootstrap job"
+    }
   }
 }

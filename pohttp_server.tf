@@ -6,7 +6,7 @@ resource "google_cloud_run_v2_service" "pohttp_server" {
   template {
     timeout = "300s"
 
-    service_account = google_service_account.endpoint.email
+    service_account = google_service_account.main.email
 
     execution_environment = "EXECUTION_ENVIRONMENT_GEN2"
 

@@ -1,5 +1,5 @@
 output "service_account_email" {
-  value = google_service_account.endpoint.email
+  value = google_service_account.main.email
 }
 
 output "pubsub_topics" {
