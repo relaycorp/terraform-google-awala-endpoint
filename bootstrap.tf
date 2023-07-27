@@ -104,6 +104,10 @@ resource "google_cloud_run_v2_job" "bootstrap" {
         }
 
         env {
+          name  = "LOG_LEVEL"
+          value = var.log_level
+        }
+        env {
           name  = "LOG_TARGET"
           value = "gcp"
         }

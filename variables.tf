@@ -62,6 +62,18 @@ variable "mongodb_password" {
   sensitive   = true
 }
 
+variable "log_level" {
+  description = "The log level (trace, debug, info, warn, error, fatal)"
+  type        = string
+  default     = "info"
+
+  validation {
+    condition = contains(["trace", "debug", "info", "warn", "error", "fatal"], var.log_level)
+
+    error_message = "Invalid log level"
+  }
+}
+
 // ===== PoHTTP server =====
 
 variable "pohttp_server_domain" {
