@@ -1,4 +1,4 @@
-# `relaycorp/awala-endpoint`
+# `relaycorp/awala-endpoint/google`
 
 This is a Terraform module to manage an instance of the [Awala Internet Endpoint](https://docs.relaycorp.tech/awala-endpoint-internet/) on Google Cloud Platform (GCP) using serverless services in the same region.
 
