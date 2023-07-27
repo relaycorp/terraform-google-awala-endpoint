@@ -8,7 +8,7 @@ The module is responsible for all the resources needed to run the endpoint app o
 - The MongoDB server.
 - The DNS records.
 
-The following diagram illustrates the cloud architecture created by this module:
+The [following diagram](https://github.com/relaycorp/terraform-google-awala-endpoint/blob/main/diagrams/cloud.svg) illustrates the cloud architecture created by this module:
 
 ![](./diagrams/cloud.svg)
 
