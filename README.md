@@ -2,6 +2,8 @@
 
 Terraform module to manage an instance of the Awala Internet Endpoint on GCP.
 
+![](./diagrams/cloud.svg)
+
 ## Requirements
 
 - Enable the [Cloud Resource Manager API](https://console.developers.google.com/apis/api/cloudresourcemanager.googleapis.com/overview) for your project.
