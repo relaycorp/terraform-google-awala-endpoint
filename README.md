@@ -44,7 +44,7 @@ The following diagram illustrates the cloud architecture created by this module:
      ```
      _awala-pdc._tcp.your-domain.com. 3600 IN SRV 0 0 443 pohttp-server.your-domain.com.
      ```
-5. Configure your backend app to subscribe to incoming messages on the topic `pubsub_topics.incoming_messages`, and to publish outgoing messages to the topic `pubsub_topics.outgoing_messages`.
+5. Configure your backend app to subscribe to incoming messages on the topic found in the output `pubsub_topics.incoming_messages`, and to publish outgoing messages to the topic `pubsub_topics.outgoing_messages`.
 
 ## Dead lettering
 
