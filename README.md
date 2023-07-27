@@ -21,23 +21,30 @@ The following diagram illustrates the cloud architecture created by this module:
 
 ## Instructions
 
-- Initialise this module in a new module.
-  ```hcl
-    module "awala-endpoint" {
-      source  = "relaycorp/awala-endpoint/google"
-      version = "<INSERT VERSION HERE>"
-  
-      # ... Specify the variables here..
-    }
-  ```
-  [See full example](examples/basic).
-- Run `terraform init`, followed by `terraform apply`.
-- Finally, execute the bootstrapping script as follows:
-  ```shell
-  gcloud --project=PROJECT --region=REGION run jobs execute \
-    "$(terraform output bootstrap_job_name)" \
-    --wait
-  ```
+1. Initialise this module in a new module.
+   ```hcl
+     module "awala-endpoint" {
+       source  = "relaycorp/awala-endpoint/google"
+       version = "<INSERT VERSION HERE>"
+   
+       # ... Specify the variables here...
+     }
+   ```
+   [See full example](examples/basic).
+2. Run `terraform init`, followed by `terraform apply`.
+3. Execute the bootstrapping script as follows:
+   ```shell
+   gcloud --project=PROJECT --region=REGION run jobs execute \
+     "$(terraform output bootstrap_job_name)" \
+     --wait
+   ```
+4. Update your DNS configuration:
+   - Create an `A` record for the load balancer, whose IPv4 address can be found in the output variable `pohttp_server_ip_address`.
+   - Create an _Awala Parcel-Delivery Connection (PDC)_ SRV record for the A record above. For example:
+     ```
+     _awala-pdc._tcp.your-domain.com. 3600 IN SRV 0 0 443 pohttp-server.your-domain.com.
+     ```
+5. Configure your backend app to subscribe to incoming messages on the topic `pubsub_topics.incoming_messages`, and to publish outgoing messages to the topic `pubsub_topics.outgoing_messages`.
 
 ## Dead lettering
 
