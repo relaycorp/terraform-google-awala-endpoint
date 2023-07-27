@@ -1,6 +1,6 @@
 resource "google_service_account" "main" {
   project = var.project_id
 
-  account_id   = "awala-endpoint-${random_id.resource_suffix.hex}"
-  display_name = "Awala Internet Endpoint (${random_id.resource_suffix.hex})"
+  account_id   = "endpoint-${var.backend_name}"
+  display_name = "Awala Internet Endpoint (${var.backend_name})"
 }

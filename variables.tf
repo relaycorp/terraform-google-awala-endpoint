@@ -1,3 +1,13 @@
+variable "backend_name" {
+  description = "The name of the backend"
+  type        = string
+
+  validation {
+    condition     = can(regex("^[a-z][a-z0-9]{1,9}$", var.backend_name))
+    error_message = "Backend name must be between 1 and 10 characters long, and contain only lowercase letters and digits"
+  }
+}
+
 variable "internet_address" {
   description = "The Awala Internet address of the endpoint (e.g., 'example.com')"
   type        = string

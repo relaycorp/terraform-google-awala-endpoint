@@ -6,6 +6,7 @@ locals {
 module "self" {
   source = "../.."
 
+  backend_name     = "example"
   internet_address = "example.com"
 
   project_id = local.project_id

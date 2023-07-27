@@ -4,7 +4,7 @@ module "load_balancer" {
 
   project = var.project_id
 
-  name = "awala-endpoint-${random_id.resource_suffix.hex}"
+  name = "endpoint-${var.backend_name}"
 
   ssl                             = true
   ssl_policy                      = google_compute_ssl_policy.main.id
@@ -34,7 +34,7 @@ module "load_balancer" {
 }
 
 resource "google_compute_ssl_policy" "main" {
-  name            = "awala-endpoint-${random_id.resource_suffix.hex}"
+  name            = "endpoint-${var.backend_name}"
   profile         = "MODERN"
   min_tls_version = "TLS_1_2"
 }
@@ -43,7 +43,7 @@ resource "google_compute_region_network_endpoint_group" "main" {
   project = var.project_id
   region  = var.region
 
-  name = "awala-endpoint-${random_id.resource_suffix.hex}"
+  name = "endpoint-${var.backend_name}"
 
   network_endpoint_type = "SERVERLESS"
   cloud_run {

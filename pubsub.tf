@@ -1,7 +1,7 @@
 resource "google_pubsub_topic" "incoming_messages" {
   project = var.project_id
 
-  name = "awala-endpoint-${random_id.resource_suffix.hex}.incoming-messages"
+  name = "endpoint.${var.backend_name}.incoming-messages"
 
   message_storage_policy {
     allowed_persistence_regions = [var.region]
@@ -11,7 +11,7 @@ resource "google_pubsub_topic" "incoming_messages" {
 resource "google_pubsub_topic" "outgoing_messages" {
   project = var.project_id
 
-  name = "awala-endpoint-${random_id.resource_suffix.hex}.outgoing-messages"
+  name = "endpoint.${var.backend_name}.outgoing-messages"
 
   message_storage_policy {
     allowed_persistence_regions = [var.region]

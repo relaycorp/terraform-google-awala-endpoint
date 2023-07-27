@@ -1,7 +1,7 @@
 resource "google_secret_manager_secret" "mongodb_password" {
   project = var.project_id
 
-  secret_id = "awala-endpoint-${random_id.resource_suffix.hex}_mongodb-password"
+  secret_id = "endpoint-${var.backend_name}_mongodb-password"
 
   replication {
     user_managed {

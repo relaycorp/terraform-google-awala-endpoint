@@ -1,5 +1,5 @@
 resource "google_cloud_run_v2_job" "bootstrap" {
-  name     = "awala-endpoint-${random_id.resource_suffix.hex}-bootstrap"
+  name     = "endpoint-${var.backend_name}-bootstrap"
   location = var.region
 
   template {

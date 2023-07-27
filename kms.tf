@@ -5,7 +5,7 @@ resource "google_kms_key_ring" "keystores" {
 
   # Key rings can be deleted from the Terraform state but not GCP, so let's add a suffix in case
   # we need to recreate it.
-  name = "awala-endpoint-${random_id.resource_suffix.hex}"
+  name = "endpoint-${var.backend_name}-${random_id.unique_suffix.hex}"
 
   location = var.region
 }

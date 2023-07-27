@@ -1,5 +1,5 @@
 resource "google_cloud_run_v2_service" "pohttp_server" {
-  name     = "awala-endpoint-${random_id.resource_suffix.hex}-pohttp-server"
+  name     = "endpoint-${var.backend_name}-pohttp-server"
   location = var.region
   ingress  = "INGRESS_TRAFFIC_INTERNAL_LOAD_BALANCER"
 
