@@ -29,6 +29,8 @@ resource "google_kms_crypto_key" "identity_key" {
 
 resource "google_kms_crypto_key_version" "identity_key" {
   crypto_key = google_kms_crypto_key.identity_key.id
+
+  depends_on = [time_sleep.wait_for_id_key_creation]
 }
 
 resource "google_kms_crypto_key" "session_keys" {

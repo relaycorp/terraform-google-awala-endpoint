@@ -62,6 +62,8 @@ variable "mongodb_password" {
   sensitive   = true
 }
 
+// ===== PoHTTP server =====
+
 variable "pohttp_server_domain" {
   description = "Domain name for the PoHTTP server"
 }
@@ -82,6 +84,29 @@ variable "pohttp_server_max_instance_count" {
 }
 variable "pohttp_server_cpu_limit" {
   description = "The maximum vCPUs allocated to each instance of the PoHTTP server"
+  type        = number
+  default     = 2
+}
+
+// ===== PoHTTP client =====
+
+variable "pohttp_client_max_instance_request_concurrency" {
+  description = "The maximum number of concurrent requests per instance (for the PoHTTP client)"
+  type        = number
+  default     = 80
+}
+variable "pohttp_client_min_instance_count" {
+  description = "The minimum number of instances (for the PoHTTP client)"
+  type        = number
+  default     = 0
+}
+variable "pohttp_client_max_instance_count" {
+  description = "The maximum number of instances (for the PoHTTP client)"
+  type        = number
+  default     = 3
+}
+variable "pohttp_client_cpu_limit" {
+  description = "The maximum vCPUs allocated to each instance of the PoHTTP client"
   type        = number
   default     = 2
 }

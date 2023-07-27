@@ -4,8 +4,9 @@ output "service_account_email" {
 
 output "pubsub_topics" {
   value = {
-    "incoming_messages" = google_pubsub_topic.incoming_messages.name
-    "outgoing_messages" = google_pubsub_topic.outgoing_messages.name
+    "incoming_messages"             = google_pubsub_topic.incoming_messages.name
+    "outgoing_messages"             = google_pubsub_topic.outgoing_messages.name
+    "outgoing_messages_dead_letter" = google_pubsub_topic.outgoing_messages_dead_letter.name
   }
 }
 
