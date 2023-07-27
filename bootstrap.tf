@@ -9,7 +9,7 @@ resource "google_cloud_run_v2_job" "bootstrap" {
 
       timeout = "300s"
 
-      service_account = google_service_account.endpoint.email
+      service_account = google_service_account.main.email
 
       execution_environment = "EXECUTION_ENVIRONMENT_GEN2"
 
@@ -118,7 +118,10 @@ resource "google_cloud_run_v2_job" "bootstrap" {
     }
   }
 
-  depends_on = [time_sleep.wait_for_id_key_creation]
+  depends_on = [
+    time_sleep.wait_for_id_key_creation,
+    google_secret_manager_secret_iam_binding.mongodb_password_reader,
+  ]
   lifecycle {
     ignore_changes = [launch_stage]
   }

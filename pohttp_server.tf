@@ -6,7 +6,7 @@ resource "google_cloud_run_v2_service" "pohttp_server" {
   template {
     timeout = "300s"
 
-    service_account = google_service_account.endpoint.email
+    service_account = google_service_account.main.email
 
     execution_environment = "EXECUTION_ENVIRONMENT_GEN2"
 
@@ -158,7 +158,10 @@ resource "google_cloud_run_v2_service" "pohttp_server" {
     }
   }
 
-  depends_on = [time_sleep.wait_for_id_key_creation]
+  depends_on = [
+    time_sleep.wait_for_id_key_creation,
+    google_secret_manager_secret_iam_binding.mongodb_password_reader,
+  ]
 }
 
 resource "google_cloud_run_service_iam_member" "pohttp_server_public_access" {

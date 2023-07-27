@@ -75,7 +75,7 @@ resource "google_project_iam_binding" "keystore_kms_admin" {
 
   role = google_project_iam_custom_role.keystore_kms_admin.id
 
-  members = ["serviceAccount:${google_service_account.endpoint.email}"]
+  members = ["serviceAccount:${google_service_account.main.email}"]
 
   condition {
     title      = "Limit app access to KMS key ring"
@@ -87,7 +87,7 @@ resource "google_project_iam_member" "keystore_kms_user" {
   project = var.project_id
 
   role   = "roles/cloudkms.cryptoOperator"
-  member = "serviceAccount:${google_service_account.endpoint.email}"
+  member = "serviceAccount:${google_service_account.main.email}"
 
   condition {
     title      = "Limit app access to KMS key ring"
