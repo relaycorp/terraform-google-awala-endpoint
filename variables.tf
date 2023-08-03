@@ -25,12 +25,12 @@ variable "region" {
 
 variable "docker_image_name" {
   description = "The Docker image to deploy"
-  default     = "relaycorp/awala-endpoint-tmp"
+  default     = "relaycorp/awala-endpoint"
 }
 
 variable "docker_image_tag" {
-  description = "The Docker image tag to deploy"
-  default     = "020"
+  description = "The Docker image tag to deploy (highly recommended to set this explicitly)"
+  default     = "1.8.5"
 }
 
 variable "kms_protection_level" {
