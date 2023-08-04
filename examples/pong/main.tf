@@ -6,8 +6,8 @@ locals {
 module "self" {
   source = "../.."
 
-  backend_name     = "example"
-  internet_address = "example.com"
+  backend_name     = "pong"
+  internet_address = var.internet_address
 
   project_id = local.project_id
   region     = local.gcp_region
@@ -19,5 +19,5 @@ module "self" {
   mongodb_user     = mongodbatlas_database_user.main.username
   mongodb_password = random_password.mongodb_user_password.result
 
-  depends_on = [google_project_service.services]
+  depends_on = [time_sleep.wait_for_services]
 }

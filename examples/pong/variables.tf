@@ -16,6 +16,9 @@ variable "mongodbatlas_private_key" {
 
 variable "mongodbatlas_project_id" {}
 
+variable "internet_address" {
+  description = "Awala Internet address of the endpoint (the one with the SRV record)"
+}
 variable "pohttp_server_domain" {
   description = "Domain name for the PoHTTP server"
 }
