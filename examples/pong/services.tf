@@ -16,3 +16,8 @@ resource "google_project_service" "services" {
   service                    = each.value
   disable_dependent_services = true
 }
+
+resource "time_sleep" "wait_for_services" {
+  depends_on      = [google_project_service.services]
+  create_duration = "30s"
+}

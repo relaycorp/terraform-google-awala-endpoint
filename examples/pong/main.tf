@@ -19,5 +19,5 @@ module "self" {
   mongodb_user     = mongodbatlas_database_user.main.username
   mongodb_password = random_password.mongodb_user_password.result
 
-  depends_on = [google_project_service.services]
+  depends_on = [time_sleep.wait_for_services]
 }
