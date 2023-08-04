@@ -1,6 +1,6 @@
 # Example use of the Awala Pong server behind an Awala Internet Endpoint middleware
 
-This Terraform module integrates the [Awala Internet Endpoint](https://docs.relaycorp.tech/awala-endpoint-internet/) with the [Awala Pong server](https://github.com/relaycorp/awala-pong/) in a fully serverless environment.
+This Terraform module integrates the [Awala Internet Endpoint](https://docs.relaycorp.tech/awala-endpoint-internet/) with the [Awala Pong server](https://github.com/relaycorp/awala-pong/) in a fully serverless environment on Google Cloud Platform and MongoDB Atlas.
 
 ## Prerequisites
 
