@@ -74,4 +74,4 @@ The name of the dead letter topic is available as the output variable `pubsub_to
 
 ## Architectural decisions
 
-We had to create a load balancer because Cloud Run's domain name (`run.app`) does not support DNSSEC. As of this writing, Cloud Run offers an invite-only feature to use custom domain names, so we may switch to it if it supports DNSSEC once it reaches General Availability status.
+We had to create a load balancer because [Cloud Run's domain name (`run.app`) does not support DNSSEC](https://dnssec-analyzer.verisignlabs.com/run.app). As of this writing, Cloud Run offers an invite-only feature to use custom domain names, so we may switch to it if it supports DNSSEC once it reaches General Availability status.
