@@ -53,8 +53,9 @@ The [following diagram](https://github.com/relaycorp/terraform-google-awala-endp
 2. Run `terraform init`, followed by `terraform apply`.
 3. Execute the bootstrapping script as follows:
    ```shell
-   gcloud --project=PROJECT --region=REGION run jobs execute \
-     "$(terraform output bootstrap_job_name)" \
+   gcloud --project=PROJECT run jobs execute \
+     "$(terraform output -raw bootstrap_job_name)" \
+      --region=REGION \
      --wait
    ```
 4. Create the following DNS records:
