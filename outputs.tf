@@ -1,7 +1,3 @@
-output "service_account_email" {
-  value = google_service_account.main.email
-}
-
 output "pubsub_topics" {
   value = {
     "incoming_messages"             = google_pubsub_topic.incoming_messages.name

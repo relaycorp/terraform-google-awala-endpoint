@@ -6,8 +6,8 @@ locals {
 module "self" {
   source = "../.."
 
-  backend_name     = "example"
-  internet_address = "example.com"
+  backend_name     = "pong"
+  internet_address = var.internet_address
 
   project_id = local.project_id
   region     = local.gcp_region
