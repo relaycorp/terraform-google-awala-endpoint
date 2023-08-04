@@ -49,7 +49,7 @@ The [following diagram](https://github.com/relaycorp/terraform-google-awala-endp
        # ... Specify the variables here...
      }
    ```
-   [See full example](examples/basic).
+   [See full example](examples/pong).
 2. Run `terraform init`, followed by `terraform apply`.
 3. Execute the bootstrapping script as follows:
    ```shell
