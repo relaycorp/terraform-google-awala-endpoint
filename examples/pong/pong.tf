@@ -23,7 +23,7 @@ resource "google_cloud_run_v2_service" "pong" {
 
     execution_environment = "EXECUTION_ENVIRONMENT_GEN2"
 
-    max_instance_request_concurrency = 3
+    max_instance_request_concurrency = 100
 
     containers {
       name  = "pong"
