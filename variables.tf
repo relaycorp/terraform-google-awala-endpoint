@@ -110,7 +110,7 @@ variable "pohttp_client_max_instance_request_concurrency" {
 variable "pohttp_client_min_instance_count" {
   description = "The minimum number of instances (for the PoHTTP client)"
   type        = number
-  default     = 0
+  default     = 1
 }
 variable "pohttp_client_max_instance_count" {
   description = "The maximum number of instances (for the PoHTTP client)"
