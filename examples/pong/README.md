@@ -6,7 +6,7 @@ This Terraform module integrates the [Awala Internet Endpoint](https://docs.rela
 
 - A GCP project with billing and the [Cloud Resource Manager API](https://console.developers.google.com/apis/api/cloudresourcemanager.googleapis.com/overview) enabled.
 - A domain name with DNSSEC correctly configured.
-- A [MongoDB Atlas](https://www.mongodb.com/atlas/database) API key with the permissions `Organization Owner`, `Organization Member` and `Organization Read Only` on the project you wish to use.
+- A [MongoDB Atlas](https://www.mongodb.com/atlas/database) API key with the permissions `Organization Owner` on the project you wish to use.
 
 ## Instructions
 
