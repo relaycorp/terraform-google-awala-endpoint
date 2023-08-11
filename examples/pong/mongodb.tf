@@ -12,7 +12,7 @@ resource "mongodbatlas_serverless_instance" "main" {
   provider_settings_region_name           = "WESTERN_EUROPE"
 }
 
-resource "mongodbatlas_project_ip_access_list" "test" {
+resource "mongodbatlas_project_ip_access_list" "main" {
   project_id = var.mongodbatlas_project_id
   comment    = "See https://github.com/relaycorp/terraform-google-awala-endpoint/issues/2"
   cidr_block = "0.0.0.0/0"
