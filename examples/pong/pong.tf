@@ -3,15 +3,15 @@ locals {
 }
 
 resource "google_service_account" "pong" {
-  project = local.project_id
+  project = var.google_project_id
 
   account_id   = "awala-pong"
   display_name = "Awala Pong"
 }
 
 resource "google_cloud_run_v2_service" "pong" {
-  project  = local.project_id
-  location = local.gcp_region
+  project  = var.google_project_id
+  location = var.google_region
 
   name    = "awala-pong"
   ingress = "INGRESS_TRAFFIC_INTERNAL_ONLY"

@@ -37,7 +37,7 @@ The [following diagram](https://github.com/relaycorp/terraform-google-awala-endp
       resource "google_project_service" "services" {
          for_each = toset(local.services)
 
-         project                    = local.project_id
+         project                    = var.google_project
          service                    = each.value
          disable_dependent_services = true
       }

@@ -1,12 +1,12 @@
 resource "google_service_account" "pong_invoker" {
-  project = local.project_id
+  project = var.google_project_id
 
   account_id   = "awala-pong-pubsub"
   display_name = "Awala Pong, Cloud Run service invoker"
 }
 
 resource "google_cloud_run_service_iam_binding" "pong_invoker" {
-  project = local.project_id
+  project = var.google_project_id
 
   location = google_cloud_run_v2_service.pong.location
   service  = google_cloud_run_v2_service.pong.name
@@ -15,7 +15,7 @@ resource "google_cloud_run_service_iam_binding" "pong_invoker" {
 }
 
 resource "google_pubsub_subscription" "incoming_messages" {
-  project = local.project_id
+  project = var.google_project_id
 
   name  = "pong.incoming-pings"
   topic = module.self.pubsub_topics.incoming_messages

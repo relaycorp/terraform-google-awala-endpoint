@@ -8,12 +8,12 @@ terraform {
 }
 
 provider "google" {
-  project     = var.google_project
+  project     = var.google_project_id
   credentials = file(var.google_credentials_path)
 }
 
 provider "google-beta" {
-  project     = var.google_project
+  project     = var.google_project_id
   credentials = file(var.google_credentials_path)
 }
 

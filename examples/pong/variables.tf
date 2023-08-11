@@ -1,5 +1,9 @@
-variable "google_project" {
+variable "google_project_id" {
   description = "Google project id"
+}
+variable "google_region" {
+  description = "Google region"
+  default     = "europe-west1"
 }
 variable "google_credentials_path" {
   description = "Path to Google credentials file"

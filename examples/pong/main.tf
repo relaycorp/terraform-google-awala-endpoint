@@ -1,16 +1,11 @@
-locals {
-  project_id = "tmp-tf-awala-endpoint"
-  gcp_region = "europe-west1"
-}
-
 module "self" {
   source = "../.."
 
   backend_name     = "pong"
   internet_address = var.internet_address
 
-  project_id = local.project_id
-  region     = local.gcp_region
+  project_id = var.google_project_id
+  region     = var.google_region
 
   pohttp_server_domain = var.pohttp_server_domain
 

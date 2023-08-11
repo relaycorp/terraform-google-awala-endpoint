@@ -12,7 +12,7 @@ locals {
 resource "google_project_service" "services" {
   for_each = toset(local.services)
 
-  project                    = local.project_id
+  project                    = var.google_project_id
   service                    = each.value
   disable_dependent_services = true
 }
