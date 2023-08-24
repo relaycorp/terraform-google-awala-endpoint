@@ -4,7 +4,7 @@ resource "google_cloud_run_v2_service" "pohttp_client" {
   ingress  = "INGRESS_TRAFFIC_INTERNAL_ONLY"
 
   template {
-    timeout = "300s"
+    timeout = "5s"
 
     service_account = google_service_account.main.email
 
