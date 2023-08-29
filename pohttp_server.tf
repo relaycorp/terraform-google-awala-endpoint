@@ -128,7 +128,7 @@ resource "google_cloud_run_v2_service" "pohttp_server" {
         cpu_idle          = false
 
         limits = {
-          cpu    = var.pohttp_server_cpu_limit
+          cpu    = 1
           memory = "512Mi"
         }
       }
