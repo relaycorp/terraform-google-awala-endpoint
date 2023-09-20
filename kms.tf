@@ -14,7 +14,6 @@ resource "random_id" "key_suffix" {
   byte_length = 3
 
   keepers = {
-    keyring              = google_kms_key_ring.keystores.id
     kms_protection_level = var.kms_protection_level
   }
 }
