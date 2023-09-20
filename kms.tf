@@ -10,8 +10,17 @@ resource "google_kms_key_ring" "keystores" {
   location = var.region
 }
 
+resource "random_id" "key_suffix" {
+  byte_length = 3
+
+  keepers = {
+    keyring              = google_kms_key_ring.keystores.id
+    kms_protection_level = var.kms_protection_level
+  }
+}
+
 resource "google_kms_crypto_key" "identity_key" {
-  name     = "identity-key"
+  name     = "identity-key-${random_id.key_suffix.hex}"
   key_ring = google_kms_key_ring.keystores.id
   purpose  = "ASYMMETRIC_SIGN"
 
@@ -34,7 +43,7 @@ resource "google_kms_crypto_key_version" "identity_key" {
 }
 
 resource "google_kms_crypto_key" "session_keys" {
-  name            = "session-keys"
+  name            = "session-keys-${random_id.key_suffix.hex}"
   key_ring        = google_kms_key_ring.keystores.id
   rotation_period = "2592000s" // 30 days
   purpose         = "ENCRYPT_DECRYPT"
