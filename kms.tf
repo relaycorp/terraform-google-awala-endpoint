@@ -23,8 +23,6 @@ resource "google_kms_crypto_key" "identity_key" {
   key_ring = google_kms_key_ring.keystores.id
   purpose  = "ASYMMETRIC_SIGN"
 
-  skip_initial_version_creation = true
-
   version_template {
     algorithm        = "RSA_SIGN_PSS_2048_SHA256"
     protection_level = var.kms_protection_level
@@ -35,7 +33,11 @@ resource "google_kms_crypto_key" "identity_key" {
   }
 }
 
-resource "google_kms_crypto_key_version" "identity_key" {
+// Ideally, we'd just manage the key version explicitly, but we can't due to two limitations
+// in the Google provider:
+// 1.- This bug with HSM keys: https://github.com/hashicorp/terraform-provider-google/issues/13924
+// 2.- The lack of support for reading the public key as soon as the key is created.
+data "google_kms_crypto_key_version" "initial_identity_key" {
   crypto_key = google_kms_crypto_key.identity_key.id
 
   depends_on = [time_sleep.wait_for_id_key_creation]
@@ -57,15 +59,13 @@ resource "google_kms_crypto_key" "session_keys" {
   }
 }
 
-data "google_kms_crypto_key_version" "identity_key" {
-  crypto_key = google_kms_crypto_key.identity_key.id
-
-  depends_on = [time_sleep.wait_for_id_key_creation]
-}
-
 resource "time_sleep" "wait_for_id_key_creation" {
   depends_on      = [google_kms_crypto_key.identity_key]
   create_duration = "30s"
+
+  triggers = {
+    kms_protection_level = var.kms_protection_level
+  }
 }
 
 // IAM
