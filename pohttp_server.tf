@@ -52,7 +52,7 @@ resource "google_cloud_run_v2_service" "pohttp_server" {
 
       env {
         name  = "ACTIVE_ID_KEY_REF"
-        value = data.google_kms_crypto_key_version.initial_identity_key.id
+        value = data.google_kms_crypto_key_version.initial_identity_key.name
       }
       env {
         name  = "ACTIVE_ID_PUBLIC_KEY"
