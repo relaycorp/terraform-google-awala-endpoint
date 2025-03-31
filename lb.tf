@@ -1,6 +1,6 @@
 module "load_balancer" {
   source  = "GoogleCloudPlatform/lb-http/google//modules/serverless_negs"
-  version = "10.0.0"
+  version = "12.1.4"
 
   project = var.project_id
 
